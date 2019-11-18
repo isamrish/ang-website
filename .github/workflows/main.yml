@@ -12,8 +12,13 @@ jobs:
     - name: Use Node.js 8.15.1
       uses: actions/setup-node@v1
       with:
-        node-version: 8.15.1 
-    - name: Install Dependencies
-      run: npm install
-    - name: Build
-      run: npm run build -- --prod
+        node-version: 8.15.1
+    - name: Build and Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v2
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: gh-pages
+        FOLDER: dist/ang-website
+        BUILD_SCRIPT: npm install && npm run build -- --prod 
+      
